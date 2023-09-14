@@ -4,24 +4,45 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    private int NoteSpeed;
+	[SerializeField] private float noteSpeed;
+	[SerializeField] private Vector2 startPos;
+	[SerializeField] private Vector2 judgePos;
 
-    //public GameObject Note;
+	private float noteTime;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Application.targetFrameRate = 60;
-    }
+	//public GameObject Note;
 
-    // Update is called once per frame
-    void Update()
-    {
-        NoteSpeed = 10;
-        transform.position -= Vector3.forward * Time.deltaTime * NoteSpeed;
+	// Start is called before the first frame update
+	void Start()
+	{
+		Application.targetFrameRate = 60;
+		this.noteTime = (this.startPos.x - this.judgePos.x) / this.noteSpeed;
+	}
 
-        if (transform.position.z < -5) {
-            Destroy(gameObject);
-        }
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		NoteScroll();
+		ThroughNote();
+	}
+
+	void NoteScroll()
+	{
+		this.noteSpeed = 10;
+		transform.position -= Vector3.forward * Time.deltaTime * this.noteSpeed;
+	}
+
+	void NoteJudge()
+	{
+		if (Mathf.Abs(this.noteTime) <= 0.5f) {
+
+		}
+	}
+
+	void ThroughNote()
+	{
+		if (transform.position.z < -5) {
+			Destroy(gameObject);
+		}
+	}
 }
